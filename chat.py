@@ -30,7 +30,7 @@ model.load_state_dict(model_state)
 model.eval()
 
 bot_name = "Alexa"
-print("চলুন গল করি (বন্ধ করতে লিখুন 'ওকে বাই')")
+print("চলুন গল্প করি (বন্ধ করতে লিখুন 'ওকে বাই')")
 while True:
     # sentence = "do you use credit cards?"
     sentence = input("You: ")
