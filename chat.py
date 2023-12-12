@@ -31,27 +31,25 @@ model.eval()
 
 bot_name = "Alexa"
 print("চলুন গল্প করি (বন্ধ করতে লিখুন 'ওকে বাই')")
-while True:
-    # sentence = "do you use credit cards?"
-    sentence = input("You: ")
-    if sentence == "ওকে বাই":
-        break
+def get_response(msg):
+    while True:
+        # sentence = "do you use credit cards?"
 
-    sentence = tokenize(sentence)
-    X = bag_of_words(sentence, all_words)
-    X = X.reshape(1, X.shape[0])
-    X = torch.from_numpy(X).to(device)
 
-    output = model(X)
-    _, predicted = torch.max(output, dim=1)
+        sentence = tokenize(msg)
+        X = bag_of_words(sentence, all_words)
+        X = X.reshape(1, X.shape[0])
+        X = torch.from_numpy(X).to(device)
 
-    tag = tags[predicted.item()]
+        output = model(X)
+        _, predicted = torch.max(output, dim=1)
 
-    probs = torch.softmax(output, dim=1)
-    prob = probs[0][predicted.item()]
-    if prob.item() > 0.50:
-        for intent in intents['intents']:
-            if tag == intent["tag"]:
-                print(f"{bot_name}: {random.choice(intent['responses'])}")
-    else:
-        print(f"{bot_name}: I do not understand...")
+        tag = tags[predicted.item()]
+
+        probs = torch.softmax(output, dim=1)
+        prob = probs[0][predicted.item()]
+        if prob.item() > 0.50:
+            for intent in intents['intents']:
+                if tag == intent["tag"]:
+                    return random.choice(intent['responses'])
+        return "I do not understand..."

@@ -3,12 +3,13 @@
 
 import numpy as np
 import nltk
-#nltk.download('punkt')
+# nltk.download('punkt')
 from bangla_stemmer.stemmer import stemmer
+
 stmr = stemmer.BanglaStemmer()
 
-def tokenize(sentence):
 
+def tokenize(sentence):
     return nltk.word_tokenize(sentence)
 
 
@@ -17,7 +18,6 @@ def stem(word):
 
 
 def bag_of_words(tokenized_sentence, words):
-
     # stem each word
     sentence_words = [stem(word) for word in tokenized_sentence]
     # initialize bag with 0 for each word
@@ -27,4 +27,3 @@ def bag_of_words(tokenized_sentence, words):
             bag[idx] = 1
 
     return bag
-
